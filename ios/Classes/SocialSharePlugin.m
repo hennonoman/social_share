@@ -6,9 +6,7 @@
 #import "SocialSharePlugin.h"
 #include <objc/runtime.h>
 
-@implementation SocialSharePlugin{
-     UIDocumentInteractionController* _dic;
-}
+@implementation SocialSharePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"social_share" binaryMessenger:[registrar messenger]];
   SocialSharePlugin* instance = [[SocialSharePlugin alloc] init];
@@ -95,7 +93,7 @@
         NSLog(@"2");
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
-        _dic = [UIDocumentInteractionController interactionControllerWithURL:stickerImage];
+        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:stickerImage];
         NSLog(@"3");
         _dic.UTI = @"com.instagram.exclusivegram";
         NSLog(@"4");
