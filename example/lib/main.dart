@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:async';
 import 'package:screenshot/screenshot.dart';
 import 'package:social_share/social_share.dart';
 
@@ -74,11 +74,11 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     await screenshotController.capture().then((image) async {
                       SocialShare.shareInstagramStory(
-                        image.path,
+                        (image as File).path,
                         backgroundTopColor: "#ffffff",
                         backgroundBottomColor: "#000000",
                         attributionURL: "https://deep-link-url",
-                        backgroundImagePath: image.path,
+                        backgroundImagePath: (image as File).path,
                       ).then((data) {
                         print(data);
                       });
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
                       //facebook appId is mandatory for andorid or else share won't work
                       Platform.isAndroid
                           ? SocialShare.shareFacebookStory(
-                              image.path,
+                              (image as File).path,
                               "#ffffff",
                               "#000000",
                               "https://google.com",
@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
                               print(data);
                             })
                           : SocialShare.shareFacebookStory(
-                              image.path,
+                              (image as File).path,
                               "#ffffff",
                               "#000000",
                               "https://google.com",
