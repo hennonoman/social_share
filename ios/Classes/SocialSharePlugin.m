@@ -6,7 +6,9 @@
 #import "SocialSharePlugin.h"
 #include <objc/runtime.h>
 
-@implementation SocialSharePlugin
+@implementation SocialSharePlugin{
+     UIDocumentInteractionController* _dic;
+}
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"social_share" binaryMessenger:[registrar messenger]];
   SocialSharePlugin* instance = [[SocialSharePlugin alloc] init];
@@ -92,7 +94,7 @@
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
         [[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
-        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
+        _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
         _dic.UTI = @"com.instagram.exclusivegram";
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
             NSLog(@"Error sharing to instagram");
