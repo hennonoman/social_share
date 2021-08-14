@@ -87,14 +87,27 @@
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
-
+    NSLog(@"file://%@", stickerImage);
+   // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
           //todo add image
+        //NSError *error = nil;
+        NSString *documentDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                   NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *oldPath = [documentDir stringByAppendingPathComponent:stickerImage];
+        NSString *newPath = [documentDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.igo", stickerImage]];
+
+        NSFileManager *fileMan = [NSFileManager defaultManager];
         NSError *error = nil;
+        if (![fileMan moveItemAtPath:oldPath toPath:newPath error:&error])
+         {
+            NSLog(@"Failed to move '%@' to '%@': %@", oldPath, newPath, [error localizedDescription]);
+        }
+
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
-        [[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
-        NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
-        _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
+        //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
+        //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
+        _dic = [UIDocumentInteractionController interactionControllerWithURL:newPath];
         _dic.UTI = @"com.instagram.exclusivegram";
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
             NSLog(@"Error sharing to instagram");
