@@ -92,7 +92,7 @@
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
         [[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
-        UIDocumentInteractionController _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
+        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
         _dic.UTI = @"com.instagram.exclusivegram";
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
             NSLog(@"Error sharing to instagram");
