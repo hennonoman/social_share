@@ -75,9 +75,10 @@ class SocialSharePlugin(private val registrar: Registrar) : MethodCallHandler {
             val share = Intent(Intent.ACTION_SEND)
             share.setType("image/*")
             share.putExtra(Intent.EXTRA_STREAM, backgroundImageFile)
-            
             val chooserIntent: Intent = Intent.createChooser(share, "Share to")
-            activity.grantUriPermission("com.instagram.android", stickerImageFile, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            // Instantiate activity and verify it will resolve implicit intent
+            val activity: Activity = registrar.activity()
+            activity.grantUriPermission("com.instagram.android", backgroundImageFile, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             registrar.activeContext().startActivity(chooserIntent)
             result.success(true)
         } else if (call.method == "shareFacebookStory") {
