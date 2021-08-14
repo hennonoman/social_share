@@ -72,45 +72,14 @@ class SocialSharePlugin(private val registrar: Registrar) : MethodCallHandler {
             //check if background image is also provided
             val backfile = File(registrar.activeContext().cacheDir, backgroundImage)
             val backgroundImageFile = FileProvider.getUriForFile(registrar.activeContext(), registrar.activeContext().applicationContext.packageName + ".com.shekarmudaliyar.social_share", backfile)
-            // Create the new Intent using the 'Send' action.
             val share = Intent(Intent.ACTION_SEND)
-            // Set the MIME type
             share.setType("image/*")
-            // Create the URI from the media
-            //val uri: Uri = Uri.fromFile(backfile)
-            // Add the URI to the Intent.
             share.putExtra(Intent.EXTRA_STREAM, backgroundImageFile)
-            // Broadcast the Intent.
-            //startActivity(Intent.createChooser(share, "Share to"))
-
+            
             val chooserIntent: Intent = Intent.createChooser(share, "Share to")
-
+            activity.grantUriPermission("com.instagram.android", stickerImageFile, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             registrar.activeContext().startActivity(chooserIntent)
             result.success(true)
-//            //share on instagram story
-//            val backgroundImage: String? = call.argument("backgroundImage")
-//
-//            val intent = Intent("com.instagram.share.ADD_TO_STORY")
-//            intent.type = "image/*"
-//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//           // intent.putExtra("interactive_asset_uri", stickerImageFile)
-//            if (backgroundImage!=null) {
-//                //check if background image is also provided
-//                val backfile =  File(registrar.activeContext().cacheDir,backgroundImage)
-//                val backgroundImageFile = FileProvider.getUriForFile(registrar.activeContext(), registrar.activeContext().applicationContext.packageName + ".com.shekarmudaliyar.social_share", backfile)
-//                intent.setDataAndType(backgroundImageFile,"image/*")
-//            }
-//
-//            Log.d("", registrar.activity().toString())
-//            // Instantiate activity and verify it will resolve implicit intent
-//            val activity: Activity = registrar.activity()
-//
-//            if (activity.packageManager.resolveActivity(intent, 0) != null) {
-//                registrar.activeContext().startActivity(intent)
-//                result.success("success")
-//            } else {
-//                result.success("error")
-//            }
         } else if (call.method == "shareFacebookStory") {
             //share on facebook story
             val stickerImage: String? = call.argument("stickerImage")
