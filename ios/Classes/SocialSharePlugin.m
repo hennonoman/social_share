@@ -90,28 +90,19 @@
     NSLog(@"file://%@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
-          //todo add image
-        //NSError *error = nil;
-       // NSString *documentDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-       //                                            NSUserDomainMask, YES) objectAtIndex:0];
-       // NSString *oldPath = [documentDir stringByAppendingPathComponent:stickerImage];
-       // NSString *newPath = [documentDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.igo", stickerImage]];
-
-       // NSFileManager *fileMan = [NSFileManager defaultManager];
-      //  NSError *error = nil;
-       // if (![fileMan moveItemAtPath:oldPath toPath:newPath error:&error])
-       //  {
-        //    NSLog(@"Failed to move '%@' to '%@': %@", oldPath, newPath, [error localizedDescription]);
-      //  }
-
+        NSLog(@"1");
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
+        NSLog(@"2");
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
         _dic = [UIDocumentInteractionController interactionControllerWithURL:stickerImage];
+        NSLog(@"3");
         _dic.UTI = @"com.instagram.exclusivegram";
+        NSLog(@"4");
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
             NSLog(@"Error sharing to instagram 1");
         };
+        NSLog(@"5");
       } else {
        NSLog(@"Error sharing to instagram 2");
           //download instagram???
