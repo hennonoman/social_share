@@ -71,15 +71,15 @@ class SocialSharePlugin(private val registrar: Registrar) : MethodCallHandler {
             val backgroundImage: String? = call.argument("imagePath")
             //check if background image is also provided
             val backfile = File(registrar.activeContext().cacheDir, backgroundImage)
-            // val backgroundImageFile = FileProvider.getUriForFile(registrar.activeContext(), registrar.activeContext().applicationContext.packageName + ".com.shekarmudaliyar.social_share", backfile)
+            val backgroundImageFile = FileProvider.getUriForFile(registrar.activeContext(), registrar.activeContext().applicationContext.packageName + ".com.shekarmudaliyar.social_share", backfile)
             // Create the new Intent using the 'Send' action.
             val share = Intent(Intent.ACTION_SEND)
             // Set the MIME type
             share.setType("image/*")
             // Create the URI from the media
-            val uri: Uri = Uri.fromFile(backfile)
+            //val uri: Uri = Uri.fromFile(backfile)
             // Add the URI to the Intent.
-            share.putExtra(Intent.EXTRA_STREAM, uri)
+            share.putExtra(Intent.EXTRA_STREAM, backgroundImageFile)
             // Broadcast the Intent.
             //startActivity(Intent.createChooser(share, "Share to"))
 
