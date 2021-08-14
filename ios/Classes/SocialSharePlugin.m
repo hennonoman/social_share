@@ -86,10 +86,10 @@
        }
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
-    NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
+   // NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
     NSLog(@"file://%@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
-     if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+     //if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
           //todo add image
         //NSError *error = nil;
         NSString *documentDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
@@ -110,9 +110,10 @@
         _dic = [UIDocumentInteractionController interactionControllerWithURL:newPath];
         _dic.UTI = @"com.instagram.exclusivegram";
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
-            NSLog(@"Error sharing to instagram");
+            NSLog(@"Error sharing to instagram 1");
         };
-      } else {
+      //} else {
+       NSLog(@"Error sharing to instagram 2");
           //download instagram???
           NSString *instagramLink = @"itms-apps://itunes.apple.com/us/app/apple-store/id389801252";
           if (@available(iOS 10.0, *)) {
@@ -120,7 +121,7 @@
           } else {
               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:instagramLink]];
           }
-      }
+     // }
 
     } else if ([@"shareFacebookStory" isEqualToString:call.method]) {
         NSString *stickerImage = call.arguments[@"stickerImage"];
