@@ -118,13 +118,16 @@
         //NSLog(@"2,5");
         //_dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
         //NSLog(@"3");
-        //_dic.delegate = controller;
+
          NSLog(@"3,1");
+        _dic.URL = imageURL;
+          NSLog(@"3,11");
         _dic.UTI = @"com.instagram.photo";
         // NSLog(@"3,2");
         // _dic = [self setupControllerWithURL:imageURL usingDelegate:self];
           NSLog(@"3,3");
          _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
+         _dic.delegate = controller;
           NSLog(@"3,4");
         //_dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
