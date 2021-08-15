@@ -84,11 +84,11 @@
        }
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
-    NSURL *urlScheme = [NSURL URLWithString:@"instagram://camera"];
+    NSURL *urlScheme = [NSURL URLWithString:@"instagram://app"];
     NSLog(@"path = %@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
-     [[UIApplication sharedApplication] openURL:urlScheme];
+
     NSLog(@"0");
     UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
     NSLog(@"0,1");
@@ -124,6 +124,7 @@
         _dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
         [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
+          [[UIApplication sharedApplication] openURL:urlScheme];
         NSLog(@"5");
       } else {
        NSLog(@"Error sharing to instagram 2");
