@@ -96,7 +96,7 @@
     NSLog(@"0,2");
     NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
     NSLog(@"0,3");
-    NSData *imageData=UIImageJPEGRepresentation(imageToUse);
+    NSData *imageData=UIImageJPEGRepresentation(imageToUse, 1.0);
     NSLog(@"0,4");
     [imageData writeToFile:saveImagePath atomically:YES];
     NSLog(@"0,5");
