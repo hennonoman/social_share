@@ -122,7 +122,7 @@
          NSLog(@"3,2");
         _dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
-        [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE]);
+        [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
         NSLog(@"5");
       } else {
        NSLog(@"Error sharing to instagram 2");
