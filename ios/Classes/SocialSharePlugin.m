@@ -112,7 +112,7 @@
             NSLog(@"0,8");
             NSString *assetPlaceholder = changeRequest.placeholderForCreatedAsset.localIdentifier;
              NSLog(@"0,9");
-            NSString *shareURL = [NSString stringWithFormat:@"instagram://library?LocalIdentifier=%@", assetID];
+            NSString *shareURL = [NSString stringWithFormat:@"instagram://library?LocalIdentifier=%@", assetPlaceholder];
             NSLog(@"0,10");
             NSURL *instagramLink = [NSURL URLWithString:shareURL];
             NSLog(@"0,11");
