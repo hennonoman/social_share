@@ -82,7 +82,7 @@ class SocialShare {
       File f = await File(imagePath).copy(newPath);
 
         args = <String, dynamic>{
-          "imagePath": f.path,
+          "imagePath": imagePath,
         };
     } else {
       final tempDir = await getTemporaryDirectory();
