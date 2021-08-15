@@ -84,10 +84,11 @@
        }
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
-    NSURL *urlScheme = [NSURL URLWithString:@"instagram://app"];
+    NSURL *urlScheme = [NSURL URLWithString:@"instagram://camera"];
     NSLog(@"path = %@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
+     [[UIApplication sharedApplication] openURL:urlScheme];
     NSLog(@"0");
     UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
     NSLog(@"0,1");
