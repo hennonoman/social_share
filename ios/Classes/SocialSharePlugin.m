@@ -88,83 +88,24 @@
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
     NSURL *urlScheme = [NSURL URLWithString:@"instagram://app"];
-    NSLog(@"path = %@", stickerImage);
-   // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
-        NSLog(@"0");
         UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
-        NSLog(@"0,1");
-        //UIImage *imageToUse = [UIImage imageWithContentsOfFile:@"imageToShare.png"];
-        NSString *documentDirectory=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        NSLog(@"0,2");
-        NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
-        NSLog(@"0,3");
-        NSData *imageData=UIImageJPEGRepresentation(imageToUse, 1.0);
-        NSLog(@"0,4");
-        [imageData writeToFile:saveImagePath atomically:YES];
-        NSLog(@"0,5");
-        NSURL *imageURL=[NSURL fileURLWithPath:saveImagePath];
-        NSLog(@"0,6");
-
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-         NSLog(@"0,7");
             PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:imageToUse];
-            NSLog(@"0,8");
             NSString *assetPlaceholder = changeRequest.placeholderForCreatedAsset.localIdentifier;
-             NSLog(@"0,9");
             NSString *shareURL = [NSString stringWithFormat:@"instagram://library?LocalIdentifier=%@", assetPlaceholder];
-            NSLog(@"0,10");
             NSURL *instagramLink = [NSURL URLWithString:shareURL];
-            NSLog(@"0,11");
             [[UIApplication sharedApplication] openURL:instagramLink options:@{} completionHandler:nil];
-            NSLog(@"0,12");
         } completionHandler:^(BOOL success, NSError *error) {
             if (success) {
-                 NSLog(@"Success");
+                result(@"sharing");
             }
             else {
-                NSLog(@"write error : %@",error);
+                result(@"write error : %@",error);
             }
         }];
-
-
-        //self.dic.UTI = @"com.instagram.photo";
-        //self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
-       // self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
-        //[self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
-
-       // NSLog(@"1");
-        //UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
-       // NSLog(@"2");
-        //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
-        //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", stickerImage]];
-        //NSLog(@"2,5");
-        //_dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
-        //NSLog(@"3");
-
-         //NSLog(@"3,1");
-        //_dic.URL = imageURL;
-        //  NSLog(@"3,11");
-       // _dic.UTI = @"com.instagram.photo";
-        // NSLog(@"3,2");
-        // _dic = [self setupControllerWithURL:imageURL usingDelegate:self];
-        //  NSLog(@"3,3");
-        // _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
-       //  _dic.delegate = controller;
-        //  NSLog(@"3,4");
-        //_dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
-       // NSLog(@"4");
-       // [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
-       // NSLog(@"5");
       } else {
-       NSLog(@"Error sharing to instagram 2");
-          //download instagram???
-          NSString *instagramLink = @"itms-apps://itunes.apple.com/us/app/apple-store/id389801252";
-          if (@available(iOS 10.0, *)) {
-              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:instagramLink] options:@{} completionHandler:^(BOOL success) {}];
-          } else {
-              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:instagramLink]];
-          }
+          result(@"not supported or no instagram installed");
       }
 
     } else if ([@"shareFacebookStory" isEqualToString:call.method]) {
