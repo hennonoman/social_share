@@ -122,7 +122,7 @@
          NSLog(@"3,1");
         _dic.UTI = @"com.instagram.exclusivegram";
          NSLog(@"3,2");
-         _dic = [controller setupControllerWithURL:imageURL usingDelegate:controller];
+         _dic = [self setupControllerWithURL:imageURL usingDelegate:controller];
           NSLog(@"3,3");
          _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
           NSLog(@"3,4");
