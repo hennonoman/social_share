@@ -116,7 +116,7 @@
             NSLog(@"0,10");
             NSURL *instagramLink = [NSURL URLWithString:shareURL];
             NSLog(@"0,11");
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:instagramLink]];
+            [[UIApplication sharedApplication] openURL:instagramLink options:@{} completionHandler:nil];
             NSLog(@"0,12");
         } completionHandler:^(BOOL success, NSError *error) {
             if (success) {
