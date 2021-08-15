@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:path/path.dart' as path;
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -72,18 +71,12 @@ class SocialShare {
     return response;
   }
 
-  static Future<String?> shareInstagramFeed(
-      String imagePath) async {
+  static Future<String?> shareInstagramFeed(String imagePath) async {
     Map<String, dynamic> args;
     if (Platform.isIOS) {
-
-      String dir = (await getApplicationDocumentsDirectory()).path;
-      String newPath = path.join(dir, 'insta.igo');
-      File f = await File(imagePath).copy(newPath);
-
-        args = <String, dynamic>{
-          "imagePath": imagePath,
-        };
+      args = <String, dynamic>{
+        "imagePath": imagePath,
+      };
     } else {
       final tempDir = await getTemporaryDirectory();
 
