@@ -101,7 +101,7 @@
                 result(@"sharing");
             }
             else {
-                result(@"write error : %@",error);
+                result(@"write image error");
             }
         }];
       } else {
