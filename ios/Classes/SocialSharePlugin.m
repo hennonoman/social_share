@@ -94,7 +94,7 @@
 	//UIImage *imageToUse = [UIImage imageWithContentsOfFile:@"imageToShare.png"];
     NSString *documentDirectory=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSLog(@"0,2");
-    NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
+    NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.ig"];
     NSLog(@"0,3");
     NSData *imageData=UIImagePNGRepresentation(imageToUse);
     NSLog(@"0,4");
