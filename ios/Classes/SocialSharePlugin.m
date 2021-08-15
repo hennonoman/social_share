@@ -84,7 +84,7 @@
        }
     } else if ([@"shareInstagramFeed" isEqualToString:call.method]) {
     NSString *stickerImage = call.arguments[@"imagePath"];
-     NSURL *urlScheme = [NSURL URLWithString:@"instagram://app"];
+    NSURL *urlScheme = [NSURL URLWithString:@"instagram://app"];
     NSLog(@"file://%@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
@@ -92,8 +92,9 @@
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
         NSLog(@"2");
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
-        //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@.igo", stickerImage]];
-        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:stickerImage];
+        NSURL *path = [NSURL URLWithString:stickerImage];
+        NSLog(@"2,5");
+        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
         NSLog(@"3");
         _dic.UTI = @"com.instagram.exclusivegram";
         NSLog(@"4");
