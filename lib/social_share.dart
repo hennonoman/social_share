@@ -77,7 +77,7 @@ class SocialShare {
     Map<String, dynamic> args;
     if (Platform.isIOS) {
 
-      String dir = (await getTemporaryDirectory()).path;
+      String dir = (await getApplicationDocumentsDirectory()).path;
       String newPath = path.join(dir, 'insta.igo');
       File f = await File(imagePath).copy(newPath);
 
