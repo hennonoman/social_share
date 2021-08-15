@@ -6,7 +6,9 @@
 #import "SocialSharePlugin.h"
 #include <objc/runtime.h>
 
-@implementation SocialSharePlugin
+@implementation SocialSharePlugin{
+     UIDocumentInteractionController* _dic;
+}
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"social_share" binaryMessenger:[registrar messenger]];
   SocialSharePlugin* instance = [[SocialSharePlugin alloc] init];
@@ -88,20 +90,25 @@
     NSLog(@"path = %@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
-    NSLog(@"0");
-    UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
-    NSLog(@"0,1");
-	//UIImage *imageToUse = [UIImage imageWithContentsOfFile:@"imageToShare.png"];
-    NSString *documentDirectory=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    NSLog(@"0,2");
-    NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
-    NSLog(@"0,3");
-    NSData *imageData=UIImageJPEGRepresentation(imageToUse, 1.0);
-    NSLog(@"0,4");
-    [imageData writeToFile:saveImagePath atomically:YES];
-    NSLog(@"0,5");
-    NSURL *imageURL=[NSURL fileURLWithPath:saveImagePath];
-    NSLog(@"0,6");
+        NSLog(@"0");
+        UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
+        NSLog(@"0,1");
+        //UIImage *imageToUse = [UIImage imageWithContentsOfFile:@"imageToShare.png"];
+        NSString *documentDirectory=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSLog(@"0,2");
+        NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
+        NSLog(@"0,3");
+        NSData *imageData=UIImageJPEGRepresentation(imageToUse, 1.0);
+        NSLog(@"0,4");
+        [imageData writeToFile:saveImagePath atomically:YES];
+        NSLog(@"0,5");
+        NSURL *imageURL=[NSURL fileURLWithPath:saveImagePath];
+        NSLog(@"0,6");
+
+        //self.dic.UTI = @"com.instagram.photo";
+        //self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
+       // self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
+        //[self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
 
         NSLog(@"1");
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
@@ -109,13 +116,17 @@
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", stickerImage]];
         //NSLog(@"2,5");
-        UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
-        NSLog(@"3");
-        _dic.delegate = controller;
+        //_dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
+        //NSLog(@"3");
+        //_dic.delegate = controller;
          NSLog(@"3,1");
         _dic.UTI = @"com.instagram.exclusivegram";
          NSLog(@"3,2");
-        _dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
+         _dic = [controller setupControllerWithURL:imageURL usingDelegate:controller];
+          NSLog(@"3,3");
+         _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
+          NSLog(@"3,4");
+        //_dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
         [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
         NSLog(@"5");
