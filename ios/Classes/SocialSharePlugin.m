@@ -88,26 +88,20 @@
     NSLog(@"path = %@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
-
     NSLog(@"0");
     UIImage *imageToUse = [UIImage imageWithContentsOfFile:stickerImage];
     NSLog(@"0,1");
 	//UIImage *imageToUse = [UIImage imageWithContentsOfFile:@"imageToShare.png"];
     NSString *documentDirectory=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSLog(@"0,2");
-    NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.ig"];
+    NSString *saveImagePath=[documentDirectory stringByAppendingPathComponent:@"Image.igo"];
     NSLog(@"0,3");
-    NSData *imageData=UIImagePNGRepresentation(imageToUse);
+    NSData *imageData=UIImageJPEGRepresentation(imageToUse);
     NSLog(@"0,4");
     [imageData writeToFile:saveImagePath atomically:YES];
     NSLog(@"0,5");
     NSURL *imageURL=[NSURL fileURLWithPath:saveImagePath];
     NSLog(@"0,6");
-
-
-
-
-
 
         NSLog(@"1");
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
@@ -117,14 +111,13 @@
         //NSLog(@"2,5");
         UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
         NSLog(@"3");
-        _dic.delegate = self;
+        _dic.delegate = controller;
          NSLog(@"3,1");
-        _dic.UTI = @"com.instagram.photo";
+        _dic.UTI = @"com.instagram.exclusivegram";
          NSLog(@"3,2");
         _dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
         [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
-          [[UIApplication sharedApplication] openURL:urlScheme];
         NSLog(@"5");
       } else {
        NSLog(@"Error sharing to instagram 2");
