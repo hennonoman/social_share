@@ -108,7 +108,7 @@
 
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
          NSLog(@"0,7");
-            PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:[info valueForKey:imageToUse]];
+            PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:imageToUse];
             NSLog(@"0,8");
             NSString *assetPlaceholder = changeRequest.placeholderForCreatedAsset.localIdentifier;
              NSLog(@"0,9");
