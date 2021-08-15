@@ -4,6 +4,7 @@
 //
 
 #import "SocialSharePlugin.h"
+#import <Photos/Photos.h>
 #include <objc/runtime.h>
 
 @implementation SocialSharePlugin{
@@ -105,34 +106,56 @@
         NSURL *imageURL=[NSURL fileURLWithPath:saveImagePath];
         NSLog(@"0,6");
 
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+         NSLog(@"0,7");
+            PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:[info valueForKey:imageToUse]];
+            NSLog(@"0,8");
+            NSString *assetPlaceholder = changeRequest.placeholderForCreatedAsset.localIdentifier;
+             NSLog(@"0,9");
+            NSString *shareURL = [NSString stringWithFormat:@"instagram://library?LocalIdentifier=%@", assetID];
+            NSLog(@"0,10");
+            NSURL *instagramLink = [NSURL URLWithString:shareURL];
+            NSLog(@"0,11");
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:instagramLink]];
+            NSLog(@"0,12");
+        } completionHandler:^(BOOL success, NSError *error) {
+            if (success) {
+                 NSLog(@"Success");
+            }
+            else {
+                NSLog(@"write error : %@",error);
+            }
+        }];
+
+
         //self.dic.UTI = @"com.instagram.photo";
         //self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
        // self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
         //[self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
 
-        NSLog(@"1");
-        UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
-        NSLog(@"2");
+       // NSLog(@"1");
+        //UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
+       // NSLog(@"2");
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
         //NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", stickerImage]];
         //NSLog(@"2,5");
         //_dic = [UIDocumentInteractionController interactionControllerWithURL:imageURL];
         //NSLog(@"3");
 
-         NSLog(@"3,1");
-        _dic.URL = imageURL;
-          NSLog(@"3,11");
-        _dic.UTI = @"com.instagram.photo";
+         //NSLog(@"3,1");
+        //_dic.URL = imageURL;
+        //  NSLog(@"3,11");
+       // _dic.UTI = @"com.instagram.photo";
         // NSLog(@"3,2");
         // _dic = [self setupControllerWithURL:imageURL usingDelegate:self];
-          NSLog(@"3,3");
-         _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
-         _dic.delegate = controller;
-          NSLog(@"3,4");
+        //  NSLog(@"3,3");
+        // _dic=[UIDocumentInteractionController interactionControllerWithURL:imageURL];
+       //  _dic.delegate = controller;
+        //  NSLog(@"3,4");
         //_dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
-        NSLog(@"4");
-        [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
-        NSLog(@"5");
+       // NSLog(@"4");
+       // [_dic presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:controller.view animated:TRUE];
+       // NSLog(@"5");
       } else {
        NSLog(@"Error sharing to instagram 2");
           //download instagram???
