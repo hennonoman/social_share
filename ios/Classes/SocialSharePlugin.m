@@ -120,7 +120,7 @@
         //NSLog(@"3");
         //_dic.delegate = controller;
          NSLog(@"3,1");
-        _dic.UTI = @"com.instagram.exclusivegram";
+        _dic.UTI = @"com.instagram.photo";
         // NSLog(@"3,2");
         // _dic = [self setupControllerWithURL:imageURL usingDelegate:self];
           NSLog(@"3,3");
