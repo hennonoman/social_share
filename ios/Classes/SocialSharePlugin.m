@@ -88,15 +88,43 @@
     NSLog(@"path = %@", stickerImage);
    // NSLog(@[NSString stringWithFormat:@"%@.igo", stickerImage]);
      if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
+
+
+    // if (![fm fileExistsAtPath:tempDirectory])
+     //[fm createDirectoryAtPath:tempDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+
+   //  NSString *tempInstagramPath = [tempDirectory stringByAppendingPathComponent:@"instagramShare.igo"];
+   //  if ([fm fileExistsAtPath:tempInstagramPath])
+   //      [fm removeItemAtPath:tempInstagramPath error:nil];
+
+   //  [UIImageJPEGRepresentation(imageToShare, 1.0) writeToFile:tempInstagramPath atomically:NO];
+
+   //  documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:tempInstagramPath]];
+  //   documentInteractionController.delegate = self;
+   //  documentInteractionController.UTI = @"com.instagram.exclusivegram";
+   //  documentInteractionController.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
+   //  if (![documentInteractionController presentOpenInMenuFromRect:CGRectMake(0, 0, 0, 0) inView:self.view animated:YES])
+   //      NSLog(@"Cannot open Document Interaction Controller for sharing with Instagram");
+
+
+//documentInteractionController.URL = imageURL
+//	documentInteractionController.annotation = ["InstagramCaption" : "Testing"]
+	//documentInteractionController.UTI = "com.instagram.exclusivegram"
+
+
         NSLog(@"1");
         UIViewController* controller = [UIApplication sharedApplication].delegate.window.rootViewController;
         NSLog(@"2");
         //[[NSFileManager defaultManager] moveItemAtPath:stickerImage toPath:[NSString stringWithFormat:@"%@.igo", stickerImage] error:&error];
-        NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", stickerImage]];
+        NSURL *path = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", stickerImage]];
         NSLog(@"2,5");
         UIDocumentInteractionController* _dic = [UIDocumentInteractionController interactionControllerWithURL:path];
         NSLog(@"3");
+        _dic.delegate = self;
+         NSLog(@"3,1");
         _dic.UTI = @"com.instagram.exclusivegram";
+         NSLog(@"3,2");
+        _dic.annotation = @{@"InstagramCaption": @"My Photo Caption!"};
         NSLog(@"4");
         if (![_dic presentOpenInMenuFromRect:CGRectZero inView:controller.view animated:TRUE]) {
             NSLog(@"Error sharing to instagram 1");
